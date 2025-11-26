@@ -24,3 +24,13 @@ IF not
 7) kubectl get namespaces -A
 
 8) kubectl delete pods --all -n default
+
+Delete Gateway API resources in the cluster
+kubectl delete gateway --all -A
+kubectl delete httproute --all -A
+kubectl delete grpcroute --all -A
+kubectl delete referencegrant --all -A
+
+9)Delete Bookinfo workloads directly
+kubectl delete deployment --all -n default
+kubectl delete service --all -n default
