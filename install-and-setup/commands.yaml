@@ -19,3 +19,8 @@ kubectl label namespace default istio-injection- --overwrite
 6)Wait until everything disappears
 kubectl get pods -A
 
+IF not 
+
+7) kubectl get namespaces -A
+
+8) kubectl delete pods --all -n default
