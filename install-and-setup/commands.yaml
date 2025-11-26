@@ -1,0 +1,21 @@
+PHASE 1 – UNINSTALL EVERYTHING CLEANLY
+
+1)Delete Bookinfo (if installed)
+kubectl delete -f samples/bookinfo/platform/kube/bookinfo.yaml --ignore-not-found
+kubectl delete -f samples/bookinfo/gateway-api/bookinfo-gateway.yaml --ignore-not-found
+
+2)Delete Istio Gateway API CRDs
+kubectl delete -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.2.0/standard-install.yaml --ignore-not-found
+
+3️) Delete Istio installation
+istioctl uninstall --purge -y
+
+4)Delete the istio-system namespace
+kubectl delete namespace istio-system --ignore-not-found
+
+5)Remove namespace labels
+kubectl label namespace default istio-injection- --overwrite
+
+6)Wait until everything disappears
+kubectl get pods -A
+
