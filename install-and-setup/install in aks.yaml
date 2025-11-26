@@ -1,0 +1,25 @@
+1) Download the latest Istio
+curl -L https://istio.io/downloadIstio | sh -
+cd istio-1.28.0
+export PATH=$PWD/bin:$PATH
+
+2)Install Istio with Gateway API enabled (IMPORTANT)
+istioctl install -y --set profile=demo \
+  --set components.ingressGateways[0].enabled=true \
+  --set components.ingressGateways[0].name=istio-ingressgateway \
+  --set values.gateways.istio-ingressgateway.type=LoadBalancer \
+  --set values.meshConfig.enableGatewayAPI=true
+
+3)Enable sidecar injection
+kubectl label ns default istio-injection=enabled --overwrite
+
+4)INSTALL KUBERNETES GATEWAY API CRDs
+
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.2.0/standard-install.yaml
+
+5)DEPLOY BOOKINFO APPLICATION
+kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml
+
+Wait for pods to be ready:
+kubectl get pods
+
